@@ -30,6 +30,7 @@ const colors = [
     "#BAB25B"
 ]
 
+
 const { width } = Dimensions.get('window')
 const dotOffset = width / 6;
 
@@ -128,12 +129,19 @@ export default function App() {
     <SafeAreaView style={styles.container}>
         <View style={styles.container}/>
         <View style={styles.menuContainer}>
-            <Circle index={0} color={colors[0]} position={position} rotation={rotation} rollButton={() => showMessage('ok')}/>
-            <Circle index={1} color={colors[1]} position={position} rotation={rotation} rollButton={() => showMessage('ok')}/>
-            <Circle index={2} color={colors[2]} position={position} rotation={rotation} rollButton={() => showMessage('ok')}/>
-            <Circle index={3} color={colors[3]} position={position} rotation={rotation} rollButton={() => showMessage('ok')}/>
-            <Circle index={4} color={colors[4]} position={position} rotation={rotation} rollButton={() => showMessage('ok')}/>
-            <Circle index={5} color={colors[5]} position={position} rotation={rotation} rollButton={rollButton} isLead={true}/>
+            {colors.map((buttonColor, index) => {
+                return (
+                    <Circle
+                        key={index}
+                        index={index}
+                        color={buttonColor}
+                        position={position}
+                        rotation={rotation}
+                        isLead={index === 5}
+                        rollButton={index === 5 ? rollButton : () => showMessage('ok')}
+                    />
+                )
+            })}
         </View>
     </SafeAreaView>
   );
